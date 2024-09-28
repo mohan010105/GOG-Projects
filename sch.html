@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Appointment Scheduling</title>
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <style>/* Body Styling */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f1f3f4; /* Soft gray for modern look */
+    color: #333;
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Navbar Customization */
+.navbar-custom {
+    display: flex;
+    justify-content: space-between;
+    background-color: #ffffff;
+    padding: 15px 30px;
+    color: #333;
+    border-bottom: 1px solid #dcdcdc;
+}
+
+/* Main Search Bar Styling */
+#searchInput {
+    width: 100%;
+    padding: 14px 20px;
+    border: 1px solid #dcdcdc;
+    border-radius: 25px;
+    background-color: #ffffff;
+    box-shadow: 0 1px 6px rgba(32, 33, 36, 0.28);
+    transition: box-shadow 0.3s ease, border 0.3s ease;
+    font-size: 16px;
+}
+
+#searchInput:focus {
+    border: 1px solid #4285f4; /* Google blue */
+    box-shadow: 0 1px 8px rgba(66, 133, 244, 0.6); /* Glowing effect */
+    outline: none;
+}
+
+/* Filter Button Styling */
+.filter-button {
+    background-color: #4285f4;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 1px 6px rgba(32, 33, 36, 0.28);
+}
+
+.filter-button:hover {
+    background-color: #357ae8;
+    transform: translateY(-2px);
+}
+
+.filter-button:focus {
+    outline: none;
+}
+
+/* Filter Bar Styling */
+.filter-bar {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding: 18px;
+    background-color: #fff;
+    border-radius: 30px;
+    box-shadow: 0 1px 6px rgba(32, 33, 36, 0.28);
+}
+
+.filter-bar:hover {
+    box-shadow: 0 1px 8px rgba(66, 133, 244, 0.2);
+}
+
+/* Filter Options */
+.filter-options select {
+    padding: 12px;
+    border: 1px solid #dcdcdc;
+    border-radius: 20px;
+    transition: border-color 0.3s ease;
+}
+
+.filter-options select:focus {
+    border-color: #4285f4;
+    outline: none;
+}
+
+/* Button Styling for View All */
+#viewAllBtn,
+#viewLessBtn {
+    background-color: #4285f4;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 12px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 1px 6px rgba(32, 33, 36, 0.28);
+}
+
+#viewAllBtn:hover,
+#viewLessBtn:hover {
+    background-color: #357ae8;
+    transform: translateY(-2px);
+}
+
+.hidden {
+    display: none;
+}
+
+/* Subtle animations for interactive elements */
+a {
+    color: #4285f4;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #357ae8;
+}
+</style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav
+      class="navbar navbar-expand-lg navbar-light bg-light"
+      style="width: 100%"
+    >
+      <div class="container-fluid p-0">
+        <!-- Use container-fluid for full width and remove padding -->
+        <!-- Hamburger Menu on the Left -->
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+          style="border: none"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand mx-auto" href="#">Health Care</a>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="next.html#home"
+                >Home <span class="sr-only">(current)</span></a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="next.html#about">About Us</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="next.html#services">Services</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="sch.html">Appointment Scheduling</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="addmed.html">Add Medication Reminder</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="communication.html">Communication</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="next.html#contact">Contact Us</a>
+            </li>
+          </ul>
+        </div>
+        <!-- Profile Section on the Right -->
+        <div
+          class="d-flex align-items-center"
+          style="margin-left: auto; margin-right: 0"
+        >
+          <img
+            src="https://cdn.vectorstock.com/i/500p/53/42/user-member-avatar-face-profile-icon-vector-22965342.jpg"
+            alt="Profile"
+            class="rounded-circle"
+            style="width: 40px; height: 40px; margin-right: 10px"
+          />
+          <button
+            class="btn btn-danger btn-sm"
+            id="logoutBtn"
+            style="margin-right: 0"
+          >
+            Logout
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+      <!-- Filter and Search Bar -->
+<div class="filter-bar">
+  <input type="text" id="searchInput" placeholder="Search for hospitals..." />
+  <button class="filter-button" id="filterButton">Filter</button>
+  </div>
+  <div class="filter-options hidden" id="filterOptions">
+<!-- City Filter -->
+ <div>
+<select id="cityFilter">
+  <option value="">All Cities</option>
+  <option value="Chennai">Chennai</option>
+  <option value="Coimbatore">Coimbatore</option>
+  <option value="Madurai">Madurai</option>
+  <option value="Trichy">Trichy</option>
+  <option value="Salem">Salem</option>
+  <option value="Vellore">Vellore</option>
+  <option value="Erode">Erode</option>
+  <option value="Tirunelveli">Tirunelveli</option>
+  <option value="Kanyakumari">Kanyakumari</option>
+  <option value="Thanjavur">Thanjavur</option>
+
+</select>
+</div>
+<!-- Specialization Filter -->
+ <div>
+<select id="specializationFilter">
+  <option value="">All Specializations</option>
+  <option value="General Physician">General Physician</option>
+  <option value="Cardiologist">Cardiologist</option>
+  <option value="Neurologist">Neurologist</option>
+  <option value="Dermatologist">Dermatologist</option>
+  <option value="Pediatrician">Pediatrician</option>
+  <option value="Orthopedic Surgeon">Orthopedic Surgeon</option>
+  <option value="Obstetrician">Obstetrician</option>
+  <option value="General Surgeon">General Surgeon</option>
+  <option value="Anesthesiologist">Anesthesiologist</option>
+  <option value="Ophthalmologist">Ophthalmologist</option>
+  <option value="Pulmonologist">Pulmonologist</option>
+  <option value="Gastroenterologist">Gastroenterologist</option>
+  <option value="Endocrinologist">Endocrinologist</option>
+  <option value="Urologist">Urologist</option>
+  <option value="Internal Medicine Specialist">Internal Medicine Specialist</option>
+  <option value="Plastic Surgeon">Plastic Surgeon</option>
+  <option value="Neurosurgeon">Neurosurgeon</option>
+  <option value="Psychiatrist">Psychiatrist</option>
+  <option value="Radiologist">Radiologist</option>
+  <option value="Hematologist">Hematologist</option>
+  <option value="Physiatrist">Physiatrist</option>
+  <option value="Rheumatologist">Rheumatologist</option>
+  <option value="Infectious Disease Specialist">Infectious Disease Specialist</option>
+  <option value="Family Medicine Specialist">Family Medicine Specialist</option>
+  <option value="Vascular Surgeon">Vascular Surgeon</option>
+</select>
+</div>
+  </div>
+</div>
+
+<!-- List of Hospitals -->
+<div class="row" id="hospitalList">
+  <!-- Hospital cards will be dynamically generated here -->
+</div>
+</div>
+
+
+      <!-- View All and View Less Buttons -->
+      <div class="text-center">
+        <button class="btn btn-secondary mt-3" id="viewAllBtn">
+          View All Hospitals
+        </button>
+        <button class="btn btn-secondary mt-3 hidden" id="viewLessBtn">
+          View Less
+        </button>
+      </div>
+    </div>
+    <!-- Modal for Doctor List -->
+    <div
+      class="modal fade"
+      id="doctorModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="doctorModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="doctorModalLabel">Doctors</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" id="doctorList">
+            <!-- Doctor list will be populated here -->
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+ <!-- Modal for Appointment Form -->
+  <div class="modal fade" id="appointmentModal" tabindex="-1" role="dialog" aria-labelledby="appointmentModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="appointmentModalLabel">Book Appointment</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="appointmentForm">
+          <div class="form-group">
+            <label for="patientName">Patient Name</label>
+            <input type="text" class="form-control" id="patientName" placeholder="Enter your name">
+          </div>
+          <div class="form-group">
+            <label for="patientId">Patient ID</label>
+            <input type="text" class="form-control" id="patientId" placeholder="Enter your patient ID">
+          </div>
+          <div class="form-group">
+            <label for="phoneNumber">Phone Number</label>
+            <input type="text" class="form-control" id="phoneNumber" placeholder="Enter your phone number">
+          </div>
+          <div class="form-group">
+            <label for="appointmentDate">Appointment Date</label>
+            <input type="date" class="form-control" id="appointmentDate">
+          </div>
+          <div class="form-group">
+            <label for="selectedDoctorName">Doctor</label>
+            <input type="text" class="form-control" id="selectedDoctorName" readonly>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="scheduleButton">Schedule Appointment</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add this section where you want the booked appointments to appear -->
+<div id="appointmentsSection" class="container mt-4">
+  <h2>Your Appointments</h2>
+  <div id="appointmentsList"></div>
+</div>
+
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Script to generate hospital cards -->
+    <script src="sche.js"></script>
+    <script>
+      document
+        .getElementById("logoutBtn")
+        .addEventListener("click", function () {
+          // Logic to handle logout (e.g., clearing session, etc.)
+          alert("You have been logged out."); // Optional: alert the user
+          // Redirect to main.html
+          window.location.href = "index.html";
+        });
+    </script>
+  </body>
+</html>
